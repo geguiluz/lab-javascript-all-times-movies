@@ -65,7 +65,7 @@ let minuteConverter = durationString => {
   
 }
 
-// turnHoursToMinutes (movies);
+// turnHoursToMinutes(movies);
 
 let turnHoursToMinutes = movieArray => movieArray.map(elem => {
   if (checkValidArray(movieArray)){
@@ -82,22 +82,25 @@ let turnHoursToMinutes = movieArray => movieArray.map(elem => {
 // Get the average of all rates with 2 decimals 
 let ratesAverage = movieArray => {
   if (checkValidArray(movieArray)){
-    return movieArray.reduce((total, elem) => ({rate: parseInt(total.rate) + parseInt(elem.rate)})).rate/movieArray.length;;
+    result = parseInt(movieArray.reduce((total, elem) => ({rate: total.rate + elem.rate})).rate, 10)/movieArray.length;
+    // console.log(movieArray.reduce((total, elem) => ({rate: total.rate + elem.rate})).rate);
+    // return isNaN(result) ? 0 : result;
+    return parseFloat(result.toFixed(2));
   } else{
-    return false;
+    return undefined;
   }
 }
 
 // Get the average of Drama Movies
-
-
-// Order by time duration, in growing order
-
-
-// How many movies did STEVEN SPIELBERG
-
-
-// Order by title and print the first 20 titles
-
-
-// Best yearly rate average
+let dramaMoviesRate = movieArray => {
+  if (checkValidArray(movieArray)){
+    //Filter array for drama movies only
+    let filterArray = movieArray.filter((element) => {
+      return element.genre.filter((itm) => itm === 'Drama').length > 0;
+    });
+    //Calculate average rate using ratesAverage 
+    return ratesAverage(filterArray);
+  } else{
+    return false;
+  }
+}
