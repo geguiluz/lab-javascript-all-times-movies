@@ -16,22 +16,68 @@ function checkValidArray (array) {
 // Turn duration of the movies from hours to minutes 
 
 let minuteConverter = durationString => {
-  // console.log("Raw duration:", durationString);
-  // console.log("String W/O spaces",durationString.replace(/ /g,''));
-  // console.log("String separated",durationString.split(" ", 3));
-  timeArray = durationString.split(" ", 3);
-  // console.log(timeArray);
-  hours = timeArray[0].replace('h','');
-  minutes = timeArray[1].replace('min','');
-  totalTime = hours * 60 + parseInt(minutes);
-  console.log(totalTime);
-  return totalTime;
+  // First, let's check if we even have a valid string 
+  if (durationString !== '' || durationString !== undefined){
+    // console.log('Raw duration:', durationString);
+    //Removing all spaces from string
+    durationString = durationString.replace(/ /g,'');
+    // Check if durationString's format is readable'
+    let expHours = /[h]/;
+    let expMinutes = /[min]/;
+    let flagHours = expHours.test(durationString);
+    let flagMinutes = expMinutes.test(durationString);
+    if (flagHours === true && flagMinutes === true){
+      // durationString contains both hours and minutes
+      // console.log("La cadena contiene horas y minutos");
+      timeArray = durationString.split('h', 3);
+      // console.log(timeArray);
+      hours = timeArray[0].replace('h','');
+      minutes = timeArray[1].replace('min','');
+      totalTime = hours * 60 + parseInt(minutes);
+      // console.log(totalTime);
+      return totalTime;
+    }
+    else if (flagMinutes === true){
+      //Try to catch if durationString contains only minutes
+      // console.log("La cadena contiene sólo minutos");
+      timeArray = durationString.split("min", 1);
+      // console.log(timeArray); 
+      minutes = timeArray[0];
+      totalTime = parseInt(minutes);
+      // console.log(totalTime);
+      return totalTime;
+      //Try to catch if durationString contains only hours
+      //Return false if durationString is unparseable
+    } else if (flagHours === true){
+      // console.log("La cadena contiene sólo horas");
+      timeArray = durationString.split("h", 1);
+      // console.log(timeArray); 
+      minutes = timeArray[0]*60;
+      totalTime = parseInt(minutes);
+      // console.log(totalTime);
+      return totalTime;
+    }
+
+  } else{
+    console.log("durationString inválida");
+    return 0;
+  }
+  
 }
 
 let turnHoursToMinutes = movieArray => movieArray.map(elem => {
-  // checkValidArray(movieArray);
-  minuteConverter(elem.duration);
+  if (checkValidArray(movieArray)){
+    // console.log("Vamos a ejecutar minuteConverter con: ",elem.duration);
+    result = minuteConverter(elem.duration);
+    this.duration = isNaN(result) ? 0 : result;
+    // console.log('El nuevo valor de duration es:', this.duration);
+    return this;
+  } else{
+    return false;
+  }
 });
+
+// turnHoursToMinutes (movies);
 
 
 // Get the average of all rates with 2 decimals 

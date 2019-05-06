@@ -1987,7 +1987,7 @@ var movies = [
     title: 'Dog Day Afternoon',
     year: '1975',
     director: 'Sidney Lumet',
-    duration: '2h 5min',
+    duration: '2h',
     genre: ['Biography', 'Crime', 'Drama', 'Thriller'],
     rate: '8.0'
   },
@@ -1995,7 +1995,7 @@ var movies = [
     title: 'Dead Poets Society',
     year: '1989',
     director: 'Peter Weir',
-    duration: '2h 8min',
+    duration: '438min',
     genre: ['Comedy', 'Drama'],
     rate: '8.0'
   }
