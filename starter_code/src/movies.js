@@ -65,6 +65,8 @@ let minuteConverter = durationString => {
   
 }
 
+// turnHoursToMinutes (movies);
+
 let turnHoursToMinutes = movieArray => movieArray.map(elem => {
   if (checkValidArray(movieArray)){
     // console.log("Vamos a ejecutar minuteConverter con: ",elem.duration);
@@ -77,11 +79,14 @@ let turnHoursToMinutes = movieArray => movieArray.map(elem => {
   }
 });
 
-// turnHoursToMinutes (movies);
-
-
 // Get the average of all rates with 2 decimals 
-
+let ratesAverage = movieArray => {
+  if (checkValidArray(movieArray)){
+    return movieArray.reduce((total, elem) => ({rate: parseInt(total.rate) + parseInt(elem.rate)})).rate/movieArray.length;;
+  } else{
+    return false;
+  }
+}
 
 // Get the average of Drama Movies
 
