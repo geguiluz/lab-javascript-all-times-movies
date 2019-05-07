@@ -112,6 +112,7 @@ let orderByDuration = movieArray => {
   if (checkValidArray(movieArray)){
     // Turn all durations to minutes
     turnHoursToMinutes(movieArray);
+    // Sort array by duration
     return orderArray = movieArray.sort((previous,current) => {
       compareVariable = previous.duration - current.duration;
       if(compareVariable != 0){
@@ -125,8 +126,33 @@ let orderByDuration = movieArray => {
         }
       }
     });
-    // Sort array by duration
   } else{
     return false;
   }
 }
+
+// Get how many movies - howManyMovies
+
+let howManyMovies = movieArray => {
+  if (checkValidArray(movieArray)){
+    let filterArray = movieArray.filter((element) => {
+      return element.genre.filter((itm) => itm === 'Drama').length > 0 && element.director === 'Steven Spielberg';
+    });
+    // console.log("El Arreglo es", filterArray);
+    // console.log (filterArray.length);
+    return 'Steven Spielberg directed ' + filterArray.length + ' drama movies!';
+  } else{
+    return undefined;
+  }
+}
+
+// howManyMovies([
+//   {
+//     director: 'Steven Spielberg',
+//     genre: ['Action', 'Drama', 'Thriller']
+//   },
+//   {
+//     director: 'Steven Spielberg',
+//     genre: ['Action']
+//   }
+// ]);
