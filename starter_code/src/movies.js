@@ -146,13 +146,30 @@ let howManyMovies = movieArray => {
   }
 }
 
-// howManyMovies([
-//   {
-//     director: 'Steven Spielberg',
-//     genre: ['Action', 'Drama', 'Thriller']
-//   },
-//   {
-//     director: 'Steven Spielberg',
-//     genre: ['Action']
-//   }
-// ]);
+//Order alphabetically - orderAlphabetically
+
+let orderAlphabetically = movieArray => {
+  if (movieArray.length === 0){
+    return [];
+  }
+  if (checkValidArray(movieArray)){
+    sortedArray = movieArray.sort((previous, current) => {
+      if(current.title > previous.title){
+        return -1;
+      } else if (current.title = previous.title){
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    let stringArray = [];
+    sortedArray.forEach((itm)=>{
+      stringArray.push(itm.title);
+    }); 
+    // Regresar únicamente los primeros 20 elementos de stringArray
+    return stringArray;
+    // .slice(19);
+  } else{
+    return undefined;
+  }
+}
