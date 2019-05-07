@@ -17,50 +17,60 @@ function checkValidArray (array) {
 
 let minuteConverter = durationString => {
   // First, let's check if we even have a valid string 
+  durationString = ''+ durationString;
   if (durationString !== '' || durationString !== undefined){
-    // console.log('Raw duration:', durationString);
-    //Removing all spaces from string
-    durationString = durationString.replace(/ /g,'');
     // Check if durationString's format is readable'
     let expHours = /[h]/;
     let expMinutes = /[min]/;
     let flagHours = expHours.test(durationString);
     let flagMinutes = expMinutes.test(durationString);
-    if (flagHours === true && flagMinutes === true){
-      // durationString contains both hours and minutes
-      // console.log("La cadena contiene horas y minutos");
-      timeArray = durationString.split('h', 3);
-      // console.log(timeArray);
-      hours = timeArray[0].replace('h','');
-      minutes = timeArray[1].replace('min','');
-      totalTime = hours * 60 + parseInt(minutes);
-      // console.log(totalTime);
-      return totalTime;
-    }
-    else if (flagMinutes === true){
-      //Try to catch if durationString contains only minutes
-      // console.log("La cadena contiene sólo minutos");
-      timeArray = durationString.split("min", 1);
-      // console.log(timeArray); 
-      minutes = timeArray[0];
-      totalTime = parseInt(minutes);
-      // console.log(totalTime);
-      return totalTime;
-      //Try to catch if durationString contains only hours
-      //Return false if durationString is unparseable
-    } else if (flagHours === true){
-      // console.log("La cadena contiene sólo horas");
-      timeArray = durationString.split("h", 1);
-      // console.log(timeArray); 
-      minutes = timeArray[0]*60;
-      totalTime = parseInt(minutes);
-      // console.log(totalTime);
-      return totalTime;
-    }
+    if(flagHours === false && flagMinutes === false)
+    {
+      // console.log('Raw duration:', durationString);
+      //Removing all spaces from string
+      durationString = durationString.replace(/ /g,'');
+      if (flagHours === true && flagMinutes === true){
+        // durationString contains both hours and minutes
+        // console.log("La cadena contiene horas y minutos");
+        timeArray = durationString.split('h', 3);
+        // console.log(timeArray);
+        hours = timeArray[0].replace('h','');
+        minutes = timeArray[1].replace('min','');
+        totalTime = hours * 60 + parseInt(minutes);
+        // console.log(totalTime);
+        return totalTime;
+      }
+      else if (flagMinutes === true){
+        //Try to catch if durationString contains only minutes
+        // console.log("La cadena contiene sólo minutos");
+        timeArray = durationString.split("min", 1);
+        // console.log(timeArray); 
+        minutes = timeArray[0];
+        totalTime = parseInt(minutes);
+        // console.log(totalTime);
+        return totalTime;
+        //Try to catch if durationString contains only hours
+        //Return false if durationString is unparseable
+      } else if (flagHours === true){
+        // console.log("La cadena contiene sólo horas");
+        timeArray = durationString.split("h", 1);
+        // console.log(timeArray); 
+        minutes = timeArray[0]*60;
+        totalTime = parseInt(minutes);
+        // console.log(totalTime);
+        return totalTime;
+      }
 
+    } else{
+      console.log("durationString inválida");
+      return 0;
+    } 
+  } else if(isNaN(durationString) !== false){
+    //Maybe we got a raw duration
+    totalTime = durationString
   } else{
     console.log("durationString inválida");
-    return 0;
+      return 0;
   }
   
 }
@@ -82,7 +92,7 @@ let turnHoursToMinutes = movieArray => movieArray.map(elem => {
 // Get the average of all rates with 2 decimals 
 let ratesAverage = movieArray => {
   if (checkValidArray(movieArray)){
-    result = parseInt(movieArray.reduce((total, elem) => ({rate: total.rate + elem.rate})).rate, 10)/movieArray.length;
+    result = parseFloat(movieArray.reduce((total, elem) => ({rate: total.rate + elem.rate})).rate, 10)/movieArray.length;
     // console.log(movieArray.reduce((total, elem) => ({rate: total.rate + elem.rate})).rate);
     // return isNaN(result) ? 0 : result;
     return parseFloat(result.toFixed(2));
@@ -104,3 +114,18 @@ let dramaMoviesRate = movieArray => {
     return false;
   }
 }
+
+// Order the movies by duration - orderByDuration
+
+let orderByDuration = movieArray => {
+  if (checkValidArray(movieArray)){
+    // Turn all durations to minutes
+    turnHoursToMinutes(movieArray);
+    return orderArray = movieArray.sort((previous,current) => previous.duration - current.duration);
+    // Sort array by duration
+  } else{
+    return false;
+  }
+}
+
+orderByDuration([{ duration: 100 }]);
