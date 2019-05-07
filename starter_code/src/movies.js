@@ -112,7 +112,19 @@ let orderByDuration = movieArray => {
   if (checkValidArray(movieArray)){
     // Turn all durations to minutes
     turnHoursToMinutes(movieArray);
-    return orderArray = movieArray.sort((previous,current) => previous.duration - current.duration);
+    return orderArray = movieArray.sort((previous,current) => {
+      compareVariable = previous.duration - current.duration;
+      if(compareVariable != 0){
+        return compareVariable;
+      } else {
+        //Duration values are equal. Try sorting by name
+        if(current.title > previous.title){
+          return -1;
+        } else {
+          return 1;
+        }
+      }
+    });
     // Sort array by duration
   } else{
     return false;
