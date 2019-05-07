@@ -152,24 +152,18 @@ let orderAlphabetically = movieArray => {
   if (movieArray.length === 0){
     return [];
   }
+  let stringArray = [];
   if (checkValidArray(movieArray)){
-    sortedArray = movieArray.sort((previous, current) => {
-      if(current.title > previous.title){
-        return -1;
-      } else if (current.title = previous.title){
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-    let stringArray = [];
-    sortedArray.forEach((itm)=>{
-      stringArray.push(itm.title);
-    }); 
+    stringArray = movieArray.map((itm) => itm.title);
+    console.log(stringArray);
+    stringArray.sort()
     // Regresar únicamente los primeros 20 elementos de stringArray
+    stringArray = stringArray.slice(0,20)
     return stringArray;
-    // .slice(19);
+    // console.log(stringArray);
   } else{
     return undefined;
   }
+  return stringArray;
 }
+
